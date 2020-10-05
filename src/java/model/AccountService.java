@@ -11,4 +11,24 @@ package model;
  */
 public class AccountService {
     
+    final private String validUsernameAbe = "abe";
+    final private String validUsernameBard = "barb";
+    final private String authenticatedPassword = "password";
+    
+    public AccountService(){
+        
+    }
+    
+    
+    public User login(String username, String password){
+        User newUser = new User(username, password);
+        
+        if((username.equalsIgnoreCase(this.validUsernameAbe) || username.equalsIgnoreCase(this.validUsernameBard)) 
+                && password.equals(this.authenticatedPassword)){
+            newUser.validUser();
+        } else {
+            newUser.invalidUser();
+        }
+        return newUser;
+    }
 }
