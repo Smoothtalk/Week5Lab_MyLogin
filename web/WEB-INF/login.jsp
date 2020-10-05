@@ -14,9 +14,10 @@
     <body>
         <h2>Login</h2>
         <form action="login" method="post">
-            <input type="text" name="username">Username <br>
-            <input type="password" name="password">Password <br>
+            <input type="text" name="username" value="${username}">Username <br>
+            <input type="password" name="password" value="${password}">Password <br>
             <input type="submit" value="submit"> <br>
         </form>
+        ${loginError}
     </body>
 </html>

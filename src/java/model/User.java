@@ -22,11 +22,4 @@ public class User {
         this.password = null;
         return this;
     }
-    
-    public User invalidUser(){
-        this.username = null;
-        this.password = null;
-        
-        return this;
-    }
 }

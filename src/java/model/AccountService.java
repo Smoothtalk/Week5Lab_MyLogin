@@ -19,15 +19,13 @@ public class AccountService {
         
     }
     
-    
     public User login(String username, String password){
         User newUser = new User(username, password);
         
-        if((username.equalsIgnoreCase(this.validUsernameAbe) || username.equalsIgnoreCase(this.validUsernameBard)) 
-                && password.equals(this.authenticatedPassword)){
+        if((username.equalsIgnoreCase(this.validUsernameAbe) || username.equalsIgnoreCase(this.validUsernameBard)) && password.equals(this.authenticatedPassword)){
             newUser.validUser();
         } else {
-            newUser.invalidUser();
+            newUser = null;
         }
         return newUser;
     }
