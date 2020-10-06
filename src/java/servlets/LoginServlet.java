@@ -26,7 +26,21 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        
+        String logout = request.getParameter("logout");
+  
+        if(logout != null){
+            session.invalidate();
+            session = request.getSession();
+            request.setAttribute("loginStatus", "Successfully Logged out"); 
+        } 
+        
+        if((String) session.getAttribute("username") != null){
+            response.sendRedirect(request.getContextPath() + "/home");
+        } else {
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -42,7 +56,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        User authenticatedUser = (User) session.getAttribute("user");
+        User authenticatedUser;
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -54,12 +68,13 @@ public class LoginServlet extends HttpServlet {
         }
         
         AccountService acctService = new AccountService();
-        authenticatedUser = acctService.login(username, password);   
+        authenticatedUser = acctService.login(username, password); 
+        
         if(authenticatedUser != null){
-            session.setAttribute("user", authenticatedUser);
+            session.setAttribute("username", username);
             response.sendRedirect(request.getContextPath() + "/home");
         } else {
-            request.setAttribute("loginError", "Error logging in");
+            request.setAttribute("loginStatus", "Error logging in");
             request.setAttribute("username", username);
             request.setAttribute("password", password);
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);

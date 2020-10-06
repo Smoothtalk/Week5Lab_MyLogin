@@ -18,6 +18,6 @@
             <input type="password" name="password" value="${password}">Password <br>
             <input type="submit" value="submit"> <br>
         </form>
-        ${loginError}
+        ${loginStatus}
     </body>
 </html>
